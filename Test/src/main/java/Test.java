@@ -19,10 +19,12 @@ public class Test {
         webDriver.close();
         webDriver.quit();
     }
-    public void start() {
+    public void startFirst() {
         Roomguru roomguru = new Roomguru(webDriver);
         roomguru.enterData();
-        roomguru.clickMainPage();
+    }
+    public void startSecond() {
+        Roomguru roomguru = new Roomguru(webDriver);
         roomguru.enterWrongData();
     }
 
@@ -30,7 +32,12 @@ public class Test {
         Test test = new Test();
         test.initDriver();
         test.launch();
-        test.start();
+        test.startFirst();
+        test.shutDown();
+        test.initDriver();
+        test.launch();
+        test.startSecond();
+        test.shutDown();
     }
 }
 
