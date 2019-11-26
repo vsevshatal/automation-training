@@ -6,3 +6,4 @@ bin/
 chromedriver.exe
 .idea/
 *.iml
+out/
