@@ -1,7 +1,8 @@
-package page;
+package com.testing.framework.page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -9,7 +10,8 @@ import java.util.concurrent.TimeUnit;
 public class HomePage extends AbstractPage {
 
     private static final String HOMEPAGE_URL = "https://www.roomguru.ru/";
-    private By popularDestination = By.xpath("//*[@id=\"hc_r_content\"]/div[2]/div[3]/div/div/div[3]/div/a");
+    @FindBy(xpath = "//*[@id=\"hc_r_content\"]/div[2]/div[3]/div/div/div[2]/div/a")
+    private WebElement popularDestination;
 
 
     public HomePage(WebDriver driver) {
@@ -19,6 +21,7 @@ public class HomePage extends AbstractPage {
 
     @Override
     public HomePage openPage() {
+        webDriver.manage().window().maximize();
         webDriver.navigate().to(HOMEPAGE_URL);
         return this;
     }
@@ -26,7 +29,7 @@ public class HomePage extends AbstractPage {
 
     public HotelsPage goToTheHotelsTab() {
         webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        webDriver.findElement(popularDestination).click();
+        popularDestination.click();
         return new HotelsPage(webDriver);
     }
 }

@@ -3,7 +3,7 @@
 target/
 bin/
 .DS_Store
-chromedriver.exe
 .idea/
-*.iml
 out/
+*.iml
+chromedriver.exe

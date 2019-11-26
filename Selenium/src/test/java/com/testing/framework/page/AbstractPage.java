@@ -1,4 +1,4 @@
-package page;
+package com.testing.framework.page;
 
 import org.openqa.selenium.WebDriver;
 
