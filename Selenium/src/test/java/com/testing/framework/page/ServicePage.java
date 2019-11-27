@@ -13,7 +13,7 @@ public class ServicePage extends AbstractPage {
     @FindBy (xpath = "/html/body/div[1]/div[3]/a")
     private WebElement continueToSite;
 
-    @FindBy (xpath = "/html/body/div[1]/div[2]/div/div[3]/div[3]/div[1]/div[6]/div[3]/div[1]/div/div[2]/div[1]/a/img")
+    @FindBy (xpath = "//*[@id=\"hotel_370185\"]/a/img")
     private WebElement hotelName;
 
     public ServicePage(WebDriver driver) {

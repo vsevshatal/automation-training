@@ -23,6 +23,8 @@ public class HotelsPage extends AbstractPage {
     private WebElement dayOfComingOutSelector;
     @FindBy (xpath = "//*[@id=\"HC_DateSelection_checkout_1\"]/div[2]/label/select")
     private WebElement monthOfComingOutSelector;
+    @FindBy(xpath = "/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div/div[1]/div/div[2]/div[2]/h2")
+    private WebElement hotelFilter;
 
     public HotelsPage(WebDriver driver) {
         super(driver);
@@ -34,7 +36,7 @@ public class HotelsPage extends AbstractPage {
         return this;
     }
 
-    public HotelPage chooseDates(ResidenceTerm dates) {
+    public HotelsPage chooseDates(ResidenceTerm dates) {
         Select dayOfComingIn = new Select(dayOfComingInSelector);
         Select monthOfComingIn = new Select(monthOfComingInSelector);
         Select dayOfComingOut = new Select(dayOfComingOutSelector);
@@ -44,10 +46,18 @@ public class HotelsPage extends AbstractPage {
         monthOfComingOut.selectByVisibleText(dates.getMonthOfComingOut());
         dayOfComingOut.selectByVisibleText(dates.getDayOfComingOut());
         searchButton.click();
-        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        return this;
+    }
+
+    public HotelPage openHotel() {
         openHotelButton.click();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         return new HotelPage(webDriver);
+    }
+
+    public String isOnHotelsPage() {
+        return hotelFilter.getText();
     }
 
     public String getCurrentUrl() {
