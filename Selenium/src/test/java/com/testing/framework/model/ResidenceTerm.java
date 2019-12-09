@@ -1,7 +1,7 @@
 package com.testing.framework.model;
 
 public class ResidenceTerm {
-    private String dayOfComingIn ;
+    private String dayOfComingIn;
     private String monthOfComingIn;
     private String dayOfComingOut;
     private String monthOfComingOut;

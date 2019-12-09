@@ -7,29 +7,32 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverSingleton {
 
-    private static WebDriver webDriver;
+    private static WebDriver driver;
 
 
     private DriverSingleton() {
-
     }
 
-    public static WebDriver getWebDriver() {
-        if (null == webDriver) {
+    public static WebDriver getDriver() {
+        if (null == driver) {
             switch (System.getProperty("browser")) {
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
-                    webDriver = new FirefoxDriver();
+                    driver = new FirefoxDriver();
                 }
                 default: {
                     WebDriverManager.chromedriver().setup();
-                    webDriver = new ChromeDriver();
-                    webDriver.manage().window().maximize();
+                    driver = new ChromeDriver();
                 }
             }
+            driver.manage().window().maximize();
         }
-        return webDriver;
+
+        return driver;
     }
 
-
+    public static void closeDriver() {
+        driver.quit();
+        driver = null;
+    }
 }
