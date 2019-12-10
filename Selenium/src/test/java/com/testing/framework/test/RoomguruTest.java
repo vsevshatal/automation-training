@@ -1,9 +1,7 @@
 package com.testing.framework.test;
 
 import com.testing.framework.model.ResidenceTerm;
-import com.testing.framework.page.HomePage;
-import com.testing.framework.page.HotelsPage;
-import com.testing.framework.page.ServicePage;
+import com.testing.framework.page.*;
 import com.testing.framework.service.ResidenceTermCreator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,21 +9,9 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 
 public class RoomguruTest extends CommonCondition{
-//    @BeforeMethod(alwaysRun = true)
-//    public void browserSetup() {
-//        webDriver = new ChromeDriver();
-//        webDriver.get(WEBSITE_URL);
-//    }
-//
-//
-//    @AfterMethod(alwaysRun = true)
-//    public void browserTearDown(){
-//
-//    }
 
     @Test
     public void bookingTest() {
-
         ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
         String savedHotelName = new HomePage(driver)
                 .openPage()
@@ -63,4 +49,72 @@ public class RoomguruTest extends CommonCondition{
                 .chooseCityAndHotel();
         Assert.assertTrue(cityHotel.contains(city));
     }
+
+    @Test
+    public void wrongDatesTest() {
+        ResidenceTerm dates = ResidenceTermCreator.wrongDates();
+        String error = new HomePage(driver)
+                .openPage()
+                .chooseWrongDates(dates);
+        Assert.assertTrue(error.equals("Пожалуйста, убедитесь, что даты Заезда и Отъезда в будущем."));
+    }
+
+    @Test
+    public void serviceTest() {
+        ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        String service = new HomePage(driver)
+                .openPage()
+                .goToTheHotelsTab()
+                .compare(dates)
+                .chooseService();
+        String resultingService = new ServicePage(driver)
+                .getHotelService();
+        Assert.assertTrue(resultingService.equals(service));
+    }
+
+    @Test
+    public void checkQuery() {
+        ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        boolean service = new HomePage(driver)
+                .openPage()
+                .enterDates(dates)
+                .isRightQuery();
+        Assert.assertTrue(service);
+    }
+
+    @Test
+    public void checkLanguage() {
+        String engWords = new HomePage(driver)
+                .openPage()
+                .checkLanguage();
+        Assert.assertTrue(engWords.contains("The best hotel deals from around the world. It's our guarantee!"));
+    }
+
+    @Test
+    public void wrongName() {
+        ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        String error = new HomePage(driver)
+                .enterWrongName(dates);
+        Assert.assertTrue(error.contains("Извините, по вашему запросу ничего не найдено."));
+    }
+
+    @Test
+    public void categoryTest() {
+        String category = new HomePage(driver)
+                .openPage()
+                .goToTheHotelsTab()
+                .chooseCategory();
+        String resultCategory = new HotelPage(driver)
+                .checkServiceCategory();
+        Assert.assertTrue(resultCategory.contains(category));
+    }
+
+    @Test
+    private void locationTest() {
+        ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        String location = new HomePage(driver)
+                .findHotel(dates)
+                .checkCity();
+    }
+
 }

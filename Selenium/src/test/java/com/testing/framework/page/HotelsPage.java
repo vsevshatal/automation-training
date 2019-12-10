@@ -30,6 +30,10 @@ public class HotelsPage extends AbstractPage {
     private WebElement city;
     @FindBy (xpath = "//*[@id=\"hc_popularHotels\"]/div/div[2]/div[1]/div/div/h3/a")
     private WebElement cityHotel;
+    @FindBy (xpath = "/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[3]/div[1]/div[4]/div[2]/div[3]/div/div/div[1]/div/div[2]/div[2]/div[2]/span")
+    private WebElement compareButton;
+    @FindBy (xpath = "/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[7]/div[3]/ul/li[1]/div[1]/div/div/label")
+    private WebElement category;
 
     public HotelsPage(WebDriver driver) {
         super(driver);
@@ -58,19 +62,46 @@ public class HotelsPage extends AbstractPage {
 
         }*/
         openHotelButton.click();
-        System.out.println(sourceHotelName);
+        logger.info(sourceHotelName);
         return sourceHotelName;
     }
 
     public HotelPage chooseHotOfferingHotel() {
         hotOfferingHotel.click();
+        logger.info("Chosen hot offering");
         return new HotelPage(driver);
     }
 
     public String chooseCityAndHotel() {
         city.click();
         cityHotel.click();
+        logger.info("Get city");
         return driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/p[1]")).getText();
+    }
+
+    public HotelPage compare(ResidenceTerm dates) {
+        new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
+        new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
+        new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());
+        new Select(monthOfComingOutSelector).selectByValue(dates.getMonthOfComingOut());
+        searchButton.click();
+        compareButton.click();
+        logger.info("Open hotel");
+        return new HotelPage(driver);
+    }
+
+    public String chooseCategory() {
+        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[7]/div[1]/div[1]")).click();
+        category.click();
+        logger.info("Get category");
+        compareButton.click();
+        logger.info("Open hotel");
+        return category.getText();
+    }
+
+    public String checkCity() {
+        logger.info("Get city location");
+        return driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[3]/div[1]/div[4]/div[2]/div[3]/div/div/div[1]/div/div[1]/div[1]/div/div/div[2]/span[1]")).getText();
     }
 
     public String getCurrentUrl() {
