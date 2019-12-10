@@ -14,7 +14,7 @@ public class ServiceHotelPage extends AbstractPage {
 
     public ServiceHotelPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(this.webDriver, this);
+        PageFactory.initElements(driver, this);
     }
 
     @Override
@@ -23,8 +23,8 @@ public class ServiceHotelPage extends AbstractPage {
     }
 
     public String getHotelName() {
-        ArrayList<String> tabs = new ArrayList<String>(webDriver.getWindowHandles());
-        webDriver.switchTo().window(tabs.get(3));
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(3));
         return hotelName.getText();
     }
 }

@@ -19,7 +19,7 @@ public class HotelPage extends AbstractPage {
 
     public HotelPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(this.webDriver, this);
+        PageFactory.initElements(driver, this);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class HotelPage extends AbstractPage {
 
 
     public String openBooking() {
-        ArrayList<String> tabs = new ArrayList<String>(webDriver.getWindowHandles());
-        webDriver.switchTo().window(tabs.get(1));
-        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         sourceHotelName = hotelName.getText();
         openBookingService.click();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         return sourceHotelName;
     }
 }

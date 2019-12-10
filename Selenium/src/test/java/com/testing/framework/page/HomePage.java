@@ -26,24 +26,24 @@ public class HomePage extends AbstractPage {
 
     public HomePage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(this.webDriver, this);
+        PageFactory.initElements(driver, this);
     }
 
     @Override
     public HomePage openPage() {
-        webDriver.get(HOMEPAGE_URL);
+        driver.navigate().to(HOMEPAGE_URL);
         return this;
     }
 
     public HotelsPage goToTheHotelsTab() {
-        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         popularDestination.click();
-        return new HotelsPage(webDriver);
+        return new HotelsPage(driver);
     }
 
     public HotelsPage goToHotOfferings() {
         hotOfferings.click();
-        return new HotelsPage(webDriver);
+        return new HotelsPage(driver);
     }
 
     public String searchByCountry() {

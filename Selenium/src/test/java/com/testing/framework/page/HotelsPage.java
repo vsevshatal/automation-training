@@ -33,7 +33,7 @@ public class HotelsPage extends AbstractPage {
 
     public HotelsPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(this.webDriver, this);
+        PageFactory.initElements(driver, this);
     }
 
     @Override
@@ -64,17 +64,17 @@ public class HotelsPage extends AbstractPage {
 
     public HotelPage chooseHotOfferingHotel() {
         hotOfferingHotel.click();
-        return new HotelPage(webDriver);
+        return new HotelPage(driver);
     }
 
     public String chooseCityAndHotel() {
         city.click();
         cityHotel.click();
-        return webDriver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/p[1]")).getText();
+        return driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/p[1]")).getText();
     }
 
     public String getCurrentUrl() {
-        return webDriver.getCurrentUrl();
+        return driver.getCurrentUrl();
     }
 
 
