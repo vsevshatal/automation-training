@@ -1,6 +1,7 @@
 package com.testing.framework.page;
 
 import com.testing.framework.model.ResidenceTerm;
+import com.testing.framework.model.SearchQuery;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -91,8 +92,8 @@ public class HomePage extends AbstractPage {
         return warningField.getText();
     }
 
-    public HotelPage enterDates(ResidenceTerm dates) {
-        searchField.sendKeys("Hotel");
+    public HotelPage enterDates(ResidenceTerm dates, SearchQuery searchQuery) {
+        searchField.sendKeys(searchQuery.getSearchQuery());
         new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
         new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
         new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());
@@ -111,8 +112,8 @@ public class HomePage extends AbstractPage {
         return engText;
     }
 
-    public String enterWrongName(ResidenceTerm dates) {
-        searchField.sendKeys("111111111111111111111111111111");
+    public String enterWrongName(ResidenceTerm dates, SearchQuery searchQuery) {
+        searchField.sendKeys(searchQuery.getSearchQuery());
         new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
         new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
         new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());
@@ -122,8 +123,8 @@ public class HomePage extends AbstractPage {
         return driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div/div[1]/h1")).getText();
     }
 
-    public HotelsPage findHotel(ResidenceTerm dates) {
-        searchField.sendKeys("Вильнюс");
+    public HotelsPage findHotel(ResidenceTerm dates, SearchQuery searchQuery) {
+        searchField.sendKeys(searchQuery.getSearchQuery());
         new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
         new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
         new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());

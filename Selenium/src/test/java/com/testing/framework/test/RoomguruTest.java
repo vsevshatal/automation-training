@@ -1,8 +1,10 @@
 package com.testing.framework.test;
 
 import com.testing.framework.model.ResidenceTerm;
+import com.testing.framework.model.SearchQuery;
 import com.testing.framework.page.*;
 import com.testing.framework.service.ResidenceTermCreator;
+import com.testing.framework.service.SearchQueryCreator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -75,9 +77,10 @@ public class RoomguruTest extends CommonCondition{
     @Test
     public void checkQuery() {
         ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        SearchQuery searchQuery = SearchQueryCreator.hotelName();
         boolean service = new HomePage(driver)
                 .openPage()
-                .enterDates(dates)
+                .enterDates(dates, searchQuery)
                 .isRightQuery();
         Assert.assertTrue(service);
     }
@@ -93,8 +96,9 @@ public class RoomguruTest extends CommonCondition{
     @Test
     public void wrongName() {
         ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        SearchQuery searchQuery = SearchQueryCreator.wrongSearchQuery();
         String error = new HomePage(driver)
-                .enterWrongName(dates);
+                .enterWrongName(dates, searchQuery);
         Assert.assertTrue(error.contains("Извините, по вашему запросу ничего не найдено."));
     }
 
@@ -112,8 +116,9 @@ public class RoomguruTest extends CommonCondition{
     @Test
     public void locationTest() {
         ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
+        SearchQuery searchQuery = SearchQueryCreator.cityName();
         String location = new HomePage(driver)
-                .findHotel(dates)
+                .findHotel(dates, searchQuery)
                 .checkCity();
     }
 
