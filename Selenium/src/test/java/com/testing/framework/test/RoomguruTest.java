@@ -120,6 +120,7 @@ public class RoomguruTest extends CommonCondition{
         String location = new HomePage(driver)
                 .findHotel(dates, searchQuery)
                 .checkCity();
+        Assert.assertTrue(searchQuery.getSearchQuery().contains(location));
     }
 
 }
