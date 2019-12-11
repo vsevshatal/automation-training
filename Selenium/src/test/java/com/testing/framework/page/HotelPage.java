@@ -37,6 +37,7 @@ public class HotelPage extends AbstractPage {
 
     @Override
     public HotelPage openPage() {
+        logger.info("Hotel page opened");
         return this;
     }
 

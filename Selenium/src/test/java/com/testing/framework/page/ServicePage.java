@@ -26,6 +26,7 @@ public class ServicePage extends AbstractPage {
 
     @Override
     public ServicePage openPage() {
+        logger.info("Service page opened");
         return this;
     }
 

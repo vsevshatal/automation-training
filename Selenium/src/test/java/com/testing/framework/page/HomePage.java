@@ -59,7 +59,7 @@ public class HomePage extends AbstractPage {
     @Override
     public HomePage openPage() {
         driver.navigate().to(HOMEPAGE_URL);
-        logger.info("Page opened");
+        logger.info("Home page opened");
         return this;
     }
 
