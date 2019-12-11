@@ -110,7 +110,7 @@ public class RoomguruTest extends CommonCondition{
     }
 
     @Test
-    private void locationTest() {
+    public void locationTest() {
         ResidenceTerm dates = ResidenceTermCreator.datesOfResidence();
         String location = new HomePage(driver)
                 .findHotel(dates)

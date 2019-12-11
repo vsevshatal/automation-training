@@ -34,6 +34,8 @@ public class HotelsPage extends AbstractPage {
     private WebElement compareButton;
     @FindBy (xpath = "/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[7]/div[3]/ul/li[1]/div[1]/div/div/label")
     private WebElement category;
+    @FindBy (xpath = "/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[7]/div[1]/div[1]")
+    private WebElement categoryMenu;
 
     public HotelsPage(WebDriver driver) {
         super(driver);
@@ -56,11 +58,6 @@ public class HotelsPage extends AbstractPage {
         dayOfComingOut.selectByValue(dates.getDayOfComingOut());
         searchButton.click();
         sourceHotelName = saveHotelName.getText();
-        /*try {
-            Thread.sleep(0);
-        } catch (InterruptedException exc) {
-
-        }*/
         openHotelButton.click();
         logger.info(sourceHotelName);
         return sourceHotelName;
@@ -91,7 +88,7 @@ public class HotelsPage extends AbstractPage {
     }
 
     public String chooseCategory() {
-        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[3]/div/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div/div[2]/div[2]/div[7]/div[1]/div[1]")).click();
+        categoryMenu.click();
         category.click();
         logger.info("Get category");
         compareButton.click();

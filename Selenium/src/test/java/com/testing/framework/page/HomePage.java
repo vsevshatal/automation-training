@@ -17,7 +17,6 @@ public class HomePage extends AbstractPage {
 //    @FindBy(xpath = "/html/body/div[5]/div[1]/div[2]/div[2]/div[3]/div/div/div/div/a[@href='Place/Vilnius.htm']")
     @FindBy (xpath = "//*[@href=\"/Place/Vilnius.htm\"]")
     private WebElement popularDestination;
-
     @FindBy (xpath = "//*[@id=\"hc_evt_settings_buttons\"]/ul/li[3]/a")
     private WebElement hotOfferings;
     @FindBy (xpath = "//*[@href=\"/Countries\"]")
@@ -36,6 +35,18 @@ public class HomePage extends AbstractPage {
     private WebElement searchButton;
     @FindBy (xpath = "//*[@id=\"hc_searchBox\"]/div/form/fieldset/p/em")
     private WebElement warningField;
+    @FindBy (xpath = "//*[@id=\"hc_f_id_where_1\"]")
+    private WebElement searchField;
+    @FindBy (xpath = "/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/h3/a")
+    private WebElement openHotel;
+    @FindBy (xpath = "//*[@id=\"hc_evt_settings_buttons\"]/ul/li[1]/a")
+    private WebElement languageChooser;
+    @FindBy (xpath = "//*[@id=\"hc_evt_settings_language\"]/div[2]/div[2]/ul[1]/li[1]/a")
+    private WebElement language;
+    @FindBy (xpath = "/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/h3/a")
+    private WebElement exactLocation;
+    @FindBy (xpath = "/html/body/div[5]/div[1]/div[2]/div[1]/div/h1")
+    private WebElement engTextElement;
 
 
 
@@ -81,27 +92,27 @@ public class HomePage extends AbstractPage {
     }
 
     public HotelPage enterDates(ResidenceTerm dates) {
-        driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[1]/div/div[1]/div/form/fieldset/div[1]/input")).sendKeys("Hotel");
+        searchField.sendKeys("Hotel");
         new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
         new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
         new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());
         new Select(monthOfComingOutSelector).selectByValue(dates.getMonthOfComingOut());
         searchButton.click();
         logger.info("Search started");
-        driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/h3/a")).click();
+        openHotel.click();
         return new HotelPage(driver);
     }
 
     public String checkLanguage() {
-        driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[1]/div[1]/div[2]/ul/li[1]/a")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div[2]/ul[1]/li[1]/a")).click();
-        String engText = driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[1]/div/h1")).getText();
+        languageChooser.click();
+        language.click();
+        String engText = engTextElement.getText();
         logger.info("Language set to English");
         return engText;
     }
 
     public String enterWrongName(ResidenceTerm dates) {
-        driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[1]/div/div[1]/div/form/fieldset/div[1]/input")).sendKeys("111111111111111111111111111111");
+        searchField.sendKeys("111111111111111111111111111111");
         new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
         new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
         new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());
@@ -112,14 +123,14 @@ public class HomePage extends AbstractPage {
     }
 
     public HotelsPage findHotel(ResidenceTerm dates) {
-        driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[1]/div/div[1]/div/form/fieldset/div[1]/input")).sendKeys("Вильнюс");
+        searchField.sendKeys("Вильнюс");
         new Select(dayOfComingInSelector).selectByValue(dates.getDayOfComingIn());
         new Select(monthOfComingInSelector).selectByValue(dates.getMonthOfComingIn());
         new Select(dayOfComingOutSelector).selectByValue(dates.getDayOfComingOut());
         new Select(monthOfComingOutSelector).selectByValue(dates.getMonthOfComingOut());
         searchButton.click();
         logger.info("Finding hotel in certain city");
-        driver.findElement(By.xpath("/html/body/div[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div/div[2]/div/div[1]/h3/a")).click();
+        exactLocation.click();
         logger.info("Check location");
         return new HotelsPage(driver);
     }
