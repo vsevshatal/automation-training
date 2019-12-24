@@ -60,11 +60,11 @@ public class HomePage extends AbstractPage {
     public HomePage openPage() {
         driver.navigate().to(HOMEPAGE_URL);
         logger.info("Home page opened");
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException exc) {
-
-        }
+//        try {
+//            Thread.sleep(30000);
+//        } catch (InterruptedException exc) {
+//
+//        }
         return this;
     }
 
